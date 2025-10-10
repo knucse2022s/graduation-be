@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <h1 th:text="|${member.name}님, 환영합니다!|">로그인 사용자 이름</h1>
+        <p>회원 기능</p>
+        <p>
+        <form action="/members/logout" method="post">
+            <button type="submit">로그아웃</button>
+        </form>
+        <a href="/members">회원 목록</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
