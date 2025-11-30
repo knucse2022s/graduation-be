@@ -1,0 +1,60 @@
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0' // 중요: 4.0.0은 아직 정식 출시 전일 수 있어 안정적인 3.x 버전 권장
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 1. Web (REST API용) - webmvc 대신 starter-web 사용 권장
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+    // 2. Data (JPA) - DB 테이블과 자바 객체 매핑 (필수 추가)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // 3. Security (로그인/인증)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 4. JWT (토큰 인증 라이브러리) - (필수 추가)
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // 5. DB Driver (MySQL)
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // 6. Utils (Lombok)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 7. Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

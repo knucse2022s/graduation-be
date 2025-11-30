@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    # MySQL 접속 정보 (DB 이름: graduation_db 로 가정)
+    url: jdbc:mysql://localhost:3306/graduation_db?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: root          # 본인의 MySQL 아이디
+    password: Park2508** # 본인의 MySQL 비밀번호
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    # 실행 시 쿼리를 콘솔에 보여줌
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true # 쿼리 예쁘게 정렬해서 보여줌
+        # 중요: 최초 실행 시 'update'로 설정하면 Entity 변경사항이 DB에 자동 반영됨
+        # 배포 시에는 'validate' 또는 'none' 권장
+        hbm2ddl:
+          auto: update
+
+    # DB Dialect 설정 (MySQL 8버전 기준)
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  # 한글 깨짐 방지
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# JWT 관련 설정 (나중에 코드에서 @Value로 불러다 쓸 값들)
+jwt:
+  secret: v3rySecr3tK3yF0rGraduat1onPr0j3ctMustB3L0ngEnoughStr1ng # 임의의 긴 문자열 (32자 이상 권장)
+  expiration: 86400000 # 토큰 유효 시간 (ms 단위, 예: 24시간)
